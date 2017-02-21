@@ -14,44 +14,35 @@ As a user, I can create new restaurants
 
 ```
 
-## Rails Set Up
+## Quick & Dirty Rails
 
-#### Install Rails
+#### Install
+
 ```
 $ gem install rails
 ```
-#### Make a Rails app project
 
-Where:
-- *reji* is the name of the app;
-- *-d* postgresql to use postgreSQL instead of the default SQLite;
-- *-T* to switch off the default testing framework.
+#### Make directory
 
 ```
 $ rails new reji -d postgresql -T
 ```
-#### Build database
+
+#### Build db
+
 ```
 $ bin/rake db:create
 ```
 
-#### Initialise git
+#### Start server localhost:3000
 
-Set up git in the app root
-
-#### Start server
-
-Responses go to localhost:3000
-
-Depending on the system, it may or may not be necessary to run the second command too.
 ```
 $ bin/rake server OR bin/rake s
-```
-```
-$ bin/rake db:create RAILs_ENV=test
+
+$ bin/rake db:create RAILs_ENV=test # optional
 ```
 
-#### Add testing gems to gemfile
+#### Gemfile
 
 ```ruby
 group :test do
@@ -60,24 +51,31 @@ group :test do
 end
 ```
 
-#### Run bundler to install the gems
 ```
 $ bundle
 ```
-#### Set up spec files
 
-Auto generate dir with spec/spec_helper.rb and spec/rails_helper.rb . Also create .rspec file. Can abbreviate generate to g here and in following commands.
+#### RSpec
 
 ```
-$ bin/rails generate rspec:install
+$ bin/rails g rspec:install
 ```
-#### Require Capybara in spec/rails_helper.rb
-```
+
+> spec/spec_helper.rb
+
+> spec/rails_helper.rb
+
+> .rspec
+
+#### Capybara
+
+``` ruby
+# spec/rails_helper.rb
+
 require 'capybara/rails'
 ```
-## First App Files
 
-#### Test
+#### Feature test
 
 ``` ruby
 # spec/features/restaurants_feature_spec.rb
@@ -94,7 +92,10 @@ feature 'restaurants' do
   end
 end
 ```
+
 #### Routes
+
+###### config/routes.rb
 
 ``` ruby
 # config/routes.rb
@@ -103,7 +104,6 @@ Rails.application.routes.draw do
   resources :restaurants
 end
 ```
-To get list of routes created run:
 
 ```
 bin/rake routes
@@ -111,36 +111,38 @@ bin/rake routes
 
 #### Controllers
 
-Generate app/controllers/restaurants_conroller.rb plus some helpers, js and css files.
+###### app/controllers/restaurants_controller.rb
 
 ```
 $ bin/rails g controller restaurants
 ```
 
+> app/controllers/restaurants_controller.rb
+
+> helpers, js & css files
+
+
 #### Views
 
-```
-$ touch app/views/restaurants/index.html.erb
-```
-
-Then
+###### app/views/restaurants/index.html.erb
 
 ``` ruby
-# app/views/restaurants/index.html.erb:
+# app/views/restaurants/index.html.erb
 
 No restaurants yet
 <a href='#'>Add a restaurant</a>
 ```
 
-Each view is automatically wrapped in a layout file at app/views/layouts/
+> app/views/layouts/
 
 #### Models
 
-A second test was created in spec/features/restaurants_feature_spec.rb at this point to test for existence of a restaurant.
+###### db/migrate/20170221152800_create_restaurants.rb
 
 ``` ruby
 # spec/features/restaurants_feature_spec.rb
 
+...
 context 'restaurants have been added' do
   before do
     Restaurant.create(name: 'KFC')
@@ -152,40 +154,41 @@ context 'restaurants have been added' do
     expect(page).not_to have_content('No restaurants yet')
   end
 end
+...
 ```
-
-Then
 
 ```
 $ bin/rails g model restaurant name:string rating:integer
-```
 
-This creates a new model plus matching migration at db/migrate/20170221152800_create_restaurants.rb
-
-To get migrations to work run first command first command plus the second may also be needed depending on set up
-
-```
 $ bin/rake db:migrate
 
-$ bin/rake db:migrate RAILS_ENV=test
+$ bin/rake db:migrate RAILS_ENV=test # optional
 
 ```
 
-If make an error drop the migration, don't edit the schema.
+#### Drop migration
+
+```
+$ bin/rails d migration <MigrationName>
+
+# Then drop db tables and:
+
+$ bin/rake db:migrate
+```
 
 #### Displaying
 
-Get the data from the db and put it in the view
-
 ``` ruby
-# restaurants_controller.rb
+# app/controllers/restaurants_controller.rb
 
 class RestaurantsController < ApplicationController
   def index
     @restaurants = Restaurant.all
   end
 end
+```
 
+``` ruby
 # app/views/restaurants/index.html.erb
 
 <% if @restaurants.any? %>
@@ -200,4 +203,4 @@ end
 
 ```
 
-etc... 
+etc...
