@@ -135,3 +135,69 @@ No restaurants yet
 Each view is automatically wrapped in a layout file at app/views/layouts/
 
 #### Models
+
+A second test was created in spec/features/restaurants_feature_spec.rb at this point to test for existence of a restaurant.
+
+``` ruby
+# spec/features/restaurants_feature_spec.rb
+
+context 'restaurants have been added' do
+  before do
+    Restaurant.create(name: 'KFC')
+  end
+
+  scenario 'display restaurants' do
+    visit '/restaurants'
+    expect(page).to have_content('KFC')
+    expect(page).not_to have_content('No restaurants yet')
+  end
+end
+```
+
+Then
+
+```
+$ bin/rails g model restaurant name:string rating:integer
+```
+
+This creates a new model plus matching migration at db/migrate/20170221152800_create_restaurants.rb
+
+To get migrations to work run first command first command plus the second may also be needed depending on set up
+
+```
+$ bin/rake db:migrate
+
+$ bin/rake db:migrate RAILS_ENV=test
+
+```
+
+If make an error drop the migration, don't edit the schema.
+
+#### Displaying
+
+Get the data from the db and put it in the view
+
+``` ruby
+# restaurants_controller.rb
+
+class RestaurantsController < ApplicationController
+  def index
+    @restaurants = Restaurant.all
+  end
+end
+
+# app/views/restaurants/index.html.erb
+
+<% if @restaurants.any? %>
+  <% @restaurants.each do |restaurant| %>
+    <h2> <%= restaurant.name %> </h2>
+  <% end %>
+<% else %>
+  No restaurants yet
+<% end %>
+
+<a href='#'>Add a restaurant</a>
+
+```
+
+etc... 
