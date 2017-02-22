@@ -37,7 +37,7 @@ $ bin/rake db:create
 #### Start server localhost:3000
 
 ```
-$ bin/rake server OR bin/rake s
+$ bin/rails server OR bin/rails s
 
 $ bin/rake db:create RAILs_ENV=test # optional
 ```
