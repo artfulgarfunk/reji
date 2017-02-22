@@ -29,6 +29,12 @@ feature 'restaurants' do
       expect(page).to have_content 'KFC'
       expect(current_path).to eq '/restaurants'
     end
+
+    scenario 'cannot create restaurants if not logged in' do
+      visit '/restaurants/new'
+      expect(page).to have_content 'You need to sign in or sign up before continuing'
+      expect(current_path).to eq '/users/sign_in'
+    end
   end
 
   context 'an invalid restaurant' do
