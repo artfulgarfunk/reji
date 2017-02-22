@@ -9,8 +9,10 @@
   </section>
 <% end %>
 
-<%= form_for @restaurant do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.submit %>
+<%= form_for @restaurant do |r| %>
+  <%= r.label :name %>
+  <%= r.text_area :name %><br />
+  <%= r.label :description %>
+  <%= r.text_area :description %><br />
+  <%= r.submit "Create Restaurant" %>
 <% end %>
