@@ -13,8 +13,8 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
 
-  
-  config.omniauth :facebook, "FACEBOOK_APP_ID", "FACEBOOK_APP_SECRET"
+
+  config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"]
 
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
