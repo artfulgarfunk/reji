@@ -9,10 +9,13 @@
   </section>
 <% end %>
 
-<%= form_for @restaurant do |r| %>
+<%= form_for @restaurant, html: {multipart: true} do |r| %>
   <%= r.label :name %>
   <%= r.text_field :name %><br />
   <%= r.label :description %>
   <%= r.text_area :description %><br />
+
+  <%= r.label :image %>
+  <%= r.file_field :image %><br />
   <%= r.submit "Create Restaurant" %>
 <% end %>

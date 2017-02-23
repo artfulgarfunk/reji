@@ -2,6 +2,7 @@ class RestaurantsController < ApplicationController
   before_action :authenticate_user!, :except => [:index, :show]
 
 
+
   def index
     @restaurants = Restaurant.all
   end
@@ -43,7 +44,7 @@ end
   private
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :description)
+    params.require(:restaurant).permit(:name, :description, :image)
   end
 
 end
