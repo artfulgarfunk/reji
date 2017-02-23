@@ -20,15 +20,17 @@ feature 'restaurants' do
     end
   end
 
-  context 'creating restaurants' do
+  context 'creating restaurants with uploaded image' do
     scenario 'prompts user to fill in form, then displays the new restaurant' do
       sign_up
       visit '/restaurants'
       click_link 'Add a restaurant'
       fill_in 'Name', with: 'KFC'
+      page.attach_file('restaurant_image', File.absolute_path('/Users/admin030815/projects/reji/app/7-hull.jpg'))
       click_button 'Create Restaurant'
       expect(page).to have_content 'KFC'
       expect(current_path).to eq '/restaurants'
+      page.status_code.should == 200
     end
 
     scenario 'cannot create restaurants if not logged in' do
