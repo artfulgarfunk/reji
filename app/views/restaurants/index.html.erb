@@ -1,14 +1,15 @@
 <% if @restaurants.any? %>
   <% @restaurants.each do |restaurant| %>
     <h2> <%= link_to restaurant.name, restaurant_path(restaurant) %> </h2>
-    <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
-    <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
-    <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>
+    <div class="restaurant-links">
+      <%= link_to "Edit Restaurant", edit_restaurant_path(restaurant) %> |
+      <%= link_to "Delete Restaurant", restaurant_path(restaurant), method: :delete %> |
+      <%= link_to "Add Review", new_restaurant_review_path(restaurant) %>
+    </div>
     <ul>
     <% if restaurant.reviews.any? %>
       <% restaurant.reviews.each do |review| %>
-        <li><%= review.comments %>&nbsp;&nbsp;
-          <span style='color:blue'>Rating: <%= review.rating %></span></li>
+        <li><div class="rating">Rating: <%= review.rating %></div><p><%= simple_format(review.comments) %></p></li>
       <% end %>
     <% end %>
     </ul>
@@ -17,4 +18,6 @@
   No restaurants yet
 <% end %>
 
-<a href='restaurants/new'>Add a restaurant</a>
+<div class='row footer-button'>
+  <%= link_to "Add a restaurant", new_restaurant_path, class: 'btn btn-default'%>
+</div>
