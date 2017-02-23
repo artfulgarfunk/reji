@@ -29,6 +29,7 @@ end
 
   def edit
     @restaurant = Restaurant.find(params[:id])
+    render template: "restaurants/new"
   end
 
   def update
