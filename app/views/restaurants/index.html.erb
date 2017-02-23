@@ -7,7 +7,7 @@
     <ul>
     <% if restaurant.reviews.any? %>
       <% restaurant.reviews.each do |review| %>
-        <li><%= review.thoughts %>&nbsp;&nbsp;
+        <li><%= review.comments %>&nbsp;&nbsp;
           <span style='color:blue'>Rating: <%= review.rating %></span></li>
       <% end %>
     <% end %>
