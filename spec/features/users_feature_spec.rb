@@ -27,8 +27,13 @@ feature "User can sign in and out" do
       sign_in
       expect(page).to have_link('Sign out')
     end
-  end
 
+    it "use can sign in/up with facebook" do
+      visit('/')
+      click_link('Sign in with Facebook')
+      expect(page).to have_content('Facebook')
+  end
+end
   context "user signed in on the homepage" do
     before do
       sign_up
