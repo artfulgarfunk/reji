@@ -58,7 +58,7 @@ feature 'restaurants' do
 
     scenario 'let a user edit a restaurant' do
       visit '/restaurants'
-      click_link 'Edit KFC'
+      click_link 'Edit Restaurant'
       fill_in 'Name', with: 'Kentucky Fried Chicken'
       fill_in 'Description', with: 'Deep fried goodness'
       click_button 'Update Restaurant'
@@ -74,7 +74,7 @@ feature 'restaurants' do
 
     scenario 'removes a restaurant when a user clicks a delete link' do
       visit '/restaurants'
-      click_link 'Delete KFC'
+      click_link 'Delete Restaurant'
       expect(page).not_to have_content 'KFC'
       expect(page).to have_content 'Restaurant deleted successfully'
     end
