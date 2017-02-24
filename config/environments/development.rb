@@ -5,7 +5,7 @@ Rails.application.configure do
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
-  
+
   config.paperclip_defaults = {
   :storage => :s3,
   :s3_credentials => {
@@ -20,20 +20,23 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
+  config.action_controller.perform_caching = false
+
 
   # Enable/disable caching. By default caching is disabled.
-  if Rails.root.join('tmp/caching-dev.txt').exist?
-    config.action_controller.perform_caching = true
 
-    config.cache_store = :memory_store
-    config.public_file_server.headers = {
-      'Cache-Control' => 'public, max-age=172800'
-    }
-  else
-    config.action_controller.perform_caching = false
-
-    config.cache_store = :null_store
-  end
+  # Trying to test S3 in development so commented out the following:
+  # if Rails.root.join('tmp/caching-dev.txt').exist?
+  #   config.action_controller.perform_caching = true
+  #   config.cache_store = :memory_store
+  #   config.public_file_server.headers = {
+  #     'Cache-Control' => 'public, max-age=172800'
+  #   }
+  # else
+  #   config.action_controller.perform_caching = false
+  #
+  #   config.cache_store = :null_store
+  # end
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -50,6 +53,11 @@ Rails.application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # Adds additional error checking when serving assets at runtime.
+  # Checks for improperly declared sprockets dependencies.
+  # Raises helpful error messages.
+  config.assets.raise_runtime_errors = true
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
