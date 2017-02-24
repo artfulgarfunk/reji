@@ -26,7 +26,7 @@ feature 'restaurants' do
       visit '/restaurants'
       click_link 'Add a restaurant'
       fill_in 'Name', with: 'KFC'
-      page.attach_file('restaurant_image', File.absolute_path('/Users/admin030815/projects/reji/app/7-hull.jpg'))
+      page.attach_file('restaurant_image', Rails.root + 'app/assets/images/7-hull.jpg')
       click_button 'Create Restaurant'
       expect(page).to have_content 'KFC'
       expect(current_path).to eq '/restaurants'
