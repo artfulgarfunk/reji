@@ -30,8 +30,7 @@ feature 'restaurants' do
       click_button 'Create Restaurant'
       expect(page).to have_content 'KFC'
       expect(current_path).to eq '/restaurants'
-      # it works but the syntax is not updated.
-      page.status_code.should == 200
+      expect(page).to have_http_status(200)
     end
 
     scenario 'cannot create restaurants if not logged in' do
